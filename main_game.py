@@ -22,8 +22,8 @@ def get_font(size):
 
     font_path = os.path.join(base_path, 'Grand9K Pixel.ttf')
 
-    print(f"Font path: {font_path}")
-    print(f"Font exists: {os.path.isfile(font_path)}")
+    #print(f"Font path: {font_path}")
+    #print(f"Font exists: {os.path.isfile(font_path)}")
 
     return pygame.font.Font(font_path, size)
 
@@ -106,7 +106,7 @@ text_rect_dot = text_dot.get_rect(center=(Width-100, Height))
 text_time = font.render(f"Time: {0} seconds", True, (255, 255, 255))  # white color
 text_rect_time = text_time.get_rect(center=(Width-95, Height+25))
 text_result = font.render(f"", True, (255, 0, 0))  # red color
-text_rect_result = text_result.get_rect(center=(Width//2+35, int((12+0.5) * h_b)))
+text_rect_result = text_result.get_rect(center=(Width//2-45, int((12+0.5) * h_b)))
 text_restart = font.render(f"Press R to Restart", True, (255, 255, 255))  # white color
 text_rect_restart = text_restart.get_rect(center=(Width//2, int((18+0.5) * h_b)))
 
