@@ -170,7 +170,7 @@ while running:
        screen.blit(PACMAN[1][0], player.rect)
        text_time = font.render(f"Time: {round(final-start)} seconds", True, (255, 255, 255))  # white color
        text_dot = font.render(f"Remaining: {player.get_dot()}", True, (255, 255, 255))  # white color
-       text_result = font.render(f"YOU WON", True, (0, 255, 0))  # green color
+       text_result = font.render(f"YOU WIN", True, (0, 255, 0))  # green color
        screen.blit(text_dot, text_rect_dot)
        screen.blit(text_time, text_rect_time)
        screen.blit(text_result, text_rect_result)
