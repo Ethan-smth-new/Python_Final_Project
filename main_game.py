@@ -5,7 +5,27 @@ from game_map import board
 from draw_board import db
 import player_class
 import ghost_class
+import sys
+import os
 
+# ------pyinstallation use------
+def resource_path(relative_path):
+    base_path = getattr(sys, '_MEIPASS', os.path.abspath("."))
+    return os.path.join(base_path, relative_path)
+
+def get_font(size):
+    # Determine the correct base path
+    if getattr(sys, 'frozen', False):
+        base_path = sys._MEIPASS  # PyInstaller temporary directory
+    else:
+        base_path = os.path.abspath(".")  # Project root
+
+    font_path = os.path.join(base_path, 'Grand9K Pixel.ttf')
+
+    print(f"Font path: {font_path}")
+    print(f"Font exists: {os.path.isfile(font_path)}")
+
+    return pygame.font.Font(font_path, size)
 
 # ------pygame initiation------
 
@@ -20,39 +40,22 @@ original_borad =  copy.deepcopy(board)
 
 
 pygame.init()
+pygame.font.init()
 screen = pygame.display.set_mode((Width, Height+50)) #set the screen
 screen.fill(Background) #set the color 
 pygame.display.set_caption("Pac-Man") #title
 clock = pygame.time.Clock() 
 
 
-PACMAN = [[pygame.image.load('photo/pacman/0.png'),
-          pygame.image.load('photo/pacman/1.png'),
-          pygame.image.load('photo/pacman/0.png'),
-          pygame.image.load('photo/pacman/2.png')] for i in range(4)]
-BLINKY = [pygame.image.load('photo/ghost/blinky/0.png'),
-          pygame.image.load('photo/ghost/blinky/1.png'),
-          pygame.image.load('photo/ghost/blinky/2.png'),
-          pygame.image.load('photo/ghost/blinky/3.png')]
-PINKY = [pygame.image.load('photo/ghost/pinky/0.png'),
-          pygame.image.load('photo/ghost/pinky/1.png'),
-          pygame.image.load('photo/ghost/pinky/2.png'),
-          pygame.image.load('photo/ghost/pinky/3.png')]
-INKY = [pygame.image.load('photo/ghost/inky/0.png'),
-          pygame.image.load('photo/ghost/inky/1.png'),
-          pygame.image.load('photo/ghost/inky/2.png'),
-          pygame.image.load('photo/ghost/inky/3.png')]
-CLYDE = [pygame.image.load('photo/ghost/clyde/0.png'),
-          pygame.image.load('photo/ghost/clyde/1.png'),
-          pygame.image.load('photo/ghost/clyde/2.png'),
-          pygame.image.load('photo/ghost/clyde/3.png')]
-WARNNING = [pygame.image.load('photo/ghost/chase.png'),
-          pygame.image.load('photo/ghost/warning.png')]
-EATEN = [pygame.image.load('photo/ghost/eaten/0.png'),
-          pygame.image.load('photo/ghost/eaten/1.png'),
-          pygame.image.load('photo/ghost/eaten/2.png'),
-          pygame.image.load('photo/ghost/eaten/3.png')]
+PACMAN = [[pygame.image.load(resource_path(f'photo/pacman/{i}.png')) for i in (0,1,0,2)] for _ in range(4)]
+BLINKY = [pygame.image.load(resource_path(f'photo/ghost/blinky/{i}.png')) for i in range(4)]
+PINKY = [pygame.image.load(resource_path(f'photo/ghost/pinky/{i}.png')) for i in range(4)]
+INKY = [pygame.image.load(resource_path(f'photo/ghost/inky/{i}.png')) for i in range(4)]
+CLYDE = [pygame.image.load(resource_path(f'photo/ghost/clyde/{i}.png')) for i in range(4)]
+EATEN = [pygame.image.load(resource_path(f'photo/ghost/eaten/{i}.png')) for i in range(4)]
+WARNNING = [pygame.image.load(resource_path(f'photo/ghost/{i}.png')) for i in ("chase", "warning")]
 
+          
 for i in [BLINKY,PINKY,INKY,CLYDE,WARNNING, EATEN]:
     for idx,img in enumerate(i):
         i[idx] = pygame.transform.scale(img, (30, 30))
@@ -68,7 +71,8 @@ for g,i in enumerate(PACMAN):
         i[idx] = pygame.transform.scale(i[idx], (30, 30))
 
 
-icon = pygame.image.load('photo/icon/icon.png') #icon
+icon_path = resource_path('photo/icon/icon.png') #icon
+icon = pygame.image.load(icon_path)
 pygame.display.set_icon(icon)
 
 
@@ -90,16 +94,21 @@ clyde = ghost_class.Clyde()
 ghost_frame = 0
 last_frame_change_ghost = time.time()
 
+'''
+font_path = get_font_path('NFPixels-Regular.ttf')
+print("Font path:", font_path)
+print("Font file exists:", os.path.exists(font_path))
+'''
 
-font = pygame.font.Font("NFPixels-Regular.ttf", 23)
+font = get_font(20)
 text_dot = font.render(f"Remaining: {player.get_dot()}", True, (255, 255, 255))  # white color
 text_rect_dot = text_dot.get_rect(center=(Width-100, Height))
 text_time = font.render(f"Time: {0} seconds", True, (255, 255, 255))  # white color
 text_rect_time = text_time.get_rect(center=(Width-95, Height+25))
 text_result = font.render(f"", True, (255, 0, 0))  # red color
-text_rect_result = text_time.get_rect(center=(Width//2+35, int((12+0.5) * h_b)))
+text_rect_result = text_result.get_rect(center=(Width//2+35, int((12+0.5) * h_b)))
 text_restart = font.render(f"Press R to Restart", True, (255, 255, 255))  # white color
-text_rect_restart = text_time.get_rect(center=(Width//2-10, int((18+0.5) * h_b)))
+text_rect_restart = text_restart.get_rect(center=(Width//2, int((18+0.5) * h_b)))
 
 lives_rect = pygame.Rect(0, Height-12.5, 30, 30)
 

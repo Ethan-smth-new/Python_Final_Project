@@ -1,6 +1,8 @@
 import pygame
 from game_map import board
 import time
+import sys
+import os
 
 Width = 560
 Height = 750
@@ -11,6 +13,14 @@ clock = pygame.time.Clock()
 
 #print(dot)
 
+# ------pyinstallation use------
+def resource_path(relative_path):
+    base_path = getattr(sys, '_MEIPASS', os.path.abspath("."))
+    return os.path.join(base_path, relative_path)
+
+ANIMATION = [pygame.image.load(resource_path(f'photo/pacman/animation/{i}.png')) for i in range(8)]
+
+'''
 ANIMATION = [pygame.image.load('photo/pacman/animation/0.png'),
          pygame.image.load('photo/pacman/animation/1.png'),
           pygame.image.load('photo/pacman/animation/2.png'),
@@ -19,6 +29,7 @@ ANIMATION = [pygame.image.load('photo/pacman/animation/0.png'),
          pygame.image.load('photo/pacman/animation/5.png'),
          pygame.image.load('photo/pacman/animation/6.png'),
          pygame.image.load('photo/pacman/animation/7.png')]
+'''
 
 for idx,img in enumerate(ANIMATION):
         ANIMATION[idx] = pygame.transform.scale(img, (30, 30))
