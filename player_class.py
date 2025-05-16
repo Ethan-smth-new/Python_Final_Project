@@ -13,12 +13,7 @@ clock = pygame.time.Clock()
 
 #print(dot)
 
-# ------pyinstallation use------
-def resource_path(relative_path):
-    base_path = getattr(sys, '_MEIPASS', os.path.abspath("."))
-    return os.path.join(base_path, relative_path)
-
-ANIMATION = [pygame.image.load(resource_path(f'photo/pacman/animation/{i}.png')) for i in range(8)]
+ANIMATION = [pygame.image.load(f'photo/pacman/animation/{i}.png') for i in range(8)]
 
 '''
 ANIMATION = [pygame.image.load('photo/pacman/animation/0.png'),

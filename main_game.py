@@ -8,24 +8,6 @@ import ghost_class
 import sys
 import os
 
-# ------pyinstallation use------
-def resource_path(relative_path):
-    base_path = getattr(sys, '_MEIPASS', os.path.abspath("."))
-    return os.path.join(base_path, relative_path)
-
-def get_font(size):
-    # Determine the correct base path
-    if getattr(sys, 'frozen', False):
-        base_path = sys._MEIPASS  # PyInstaller temporary directory
-    else:
-        base_path = os.path.abspath(".")  # Project root
-
-    font_path = os.path.join(base_path, 'Grand9K Pixel.ttf')
-
-    #print(f"Font path: {font_path}")
-    #print(f"Font exists: {os.path.isfile(font_path)}")
-
-    return pygame.font.Font(font_path, size)
 
 # ------pygame initiation------
 
@@ -47,13 +29,13 @@ pygame.display.set_caption("Pac-Man") #title
 clock = pygame.time.Clock() 
 
 
-PACMAN = [[pygame.image.load(resource_path(f'photo/pacman/{i}.png')) for i in (0,1,0,2)] for _ in range(4)]
-BLINKY = [pygame.image.load(resource_path(f'photo/ghost/blinky/{i}.png')) for i in range(4)]
-PINKY = [pygame.image.load(resource_path(f'photo/ghost/pinky/{i}.png')) for i in range(4)]
-INKY = [pygame.image.load(resource_path(f'photo/ghost/inky/{i}.png')) for i in range(4)]
-CLYDE = [pygame.image.load(resource_path(f'photo/ghost/clyde/{i}.png')) for i in range(4)]
-EATEN = [pygame.image.load(resource_path(f'photo/ghost/eaten/{i}.png')) for i in range(4)]
-WARNNING = [pygame.image.load(resource_path(f'photo/ghost/{i}.png')) for i in ("chase", "warning")]
+PACMAN = [[pygame.image.load(f'photo/pacman/{i}.png') for i in (0,1,0,2)] for _ in range(4)]
+BLINKY = [pygame.image.load(f'photo/ghost/blinky/{i}.png') for i in range(4)]
+PINKY = [pygame.image.load(f'photo/ghost/pinky/{i}.png') for i in range(4)]
+INKY = [pygame.image.load(f'photo/ghost/inky/{i}.png') for i in range(4)]
+CLYDE = [pygame.image.load(f'photo/ghost/clyde/{i}.png') for i in range(4)]
+EATEN = [pygame.image.load(f'photo/ghost/eaten/{i}.png') for i in range(4)]
+WARNNING = [pygame.image.load(f'photo/ghost/{i}.png') for i in ("chase", "warning")]
 
           
 for i in [BLINKY,PINKY,INKY,CLYDE,WARNNING, EATEN]:
@@ -71,8 +53,7 @@ for g,i in enumerate(PACMAN):
         i[idx] = pygame.transform.scale(i[idx], (30, 30))
 
 
-icon_path = resource_path('photo/icon/icon.png') #icon
-icon = pygame.image.load(icon_path)
+icon = pygame.image.load('photo/icon/icon.png')
 pygame.display.set_icon(icon)
 
 
@@ -94,13 +75,8 @@ clyde = ghost_class.Clyde()
 ghost_frame = 0
 last_frame_change_ghost = time.time()
 
-'''
-font_path = get_font_path('NFPixels-Regular.ttf')
-print("Font path:", font_path)
-print("Font file exists:", os.path.exists(font_path))
-'''
 
-font = get_font(20)
+font = font = pygame.font.Font('Grand9k Pixel.ttf', 20)
 text_dot = font.render(f"Remaining: {player.get_dot()}", True, (255, 255, 255))  # white color
 text_rect_dot = text_dot.get_rect(center=(Width-100, Height))
 text_time = font.render(f"Time: {0} seconds", True, (255, 255, 255))  # white color
@@ -314,30 +290,7 @@ while running:
                 screen.blit(EATEN[ghost[1].last_dir], ghost[1].rect)
             else:
                 screen.blit(WARNNING[ghost_frame], ghost[1].rect)
-            
-            
-    '''
-    if not player.bigdot:
-        
-       
-        pinky.eaten = pinky.revive = False
-        inky.eaten = inky.revive = False
-        clyde.eaten = clyde.revive = False
-        
-        screen.blit(PINKY[pinky.last_dir], pinky.rect)
-        screen.blit(INKY[inky.last_dir], inky.rect)
-        screen.blit(CLYDE[clyde.last_dir], clyde.rect)
-    else:
-        
-        for ghost in [blinky, pinky,inky,clyde]:
-            
-        
- 
-        screen.blit(WARNNING[ghost_frame], pinky.rect)
-        screen.blit(WARNNING[ghost_frame], inky.rect)
-        screen.blit(WARNNING[ghost_frame], clyde.rect)
-        '''
-
+    
 
     #draw target point  (# can be removed if wanting to see ghosts' target.)
     #pygame.draw.circle(screen, (255,0,0),blinky.target_rect.center, 5) #blinky
