@@ -13,17 +13,6 @@ clock = pygame.time.Clock()
 
 ANIMATION = [pygame.image.load(f'photo/pacman/animation/{i}.png') for i in range(8)]
 
-'''
-ANIMATION = [pygame.image.load('photo/pacman/animation/0.png'),
-         pygame.image.load('photo/pacman/animation/1.png'),
-          pygame.image.load('photo/pacman/animation/2.png'),
-         pygame.image.load('photo/pacman/animation/3.png'),
-         pygame.image.load('photo/pacman/animation/4.png'),
-         pygame.image.load('photo/pacman/animation/5.png'),
-         pygame.image.load('photo/pacman/animation/6.png'),
-         pygame.image.load('photo/pacman/animation/7.png')]
-'''
-
 for idx,img in enumerate(ANIMATION):
         ANIMATION[idx] = pygame.transform.scale(img, (30, 30))
 
