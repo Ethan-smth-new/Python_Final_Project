@@ -1,8 +1,6 @@
 import pygame
 from game_map import board
 import time
-import sys
-import os
 
 Width = 560
 Height = 750

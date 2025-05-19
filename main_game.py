@@ -5,8 +5,6 @@ from game_map import board
 from draw_board import db
 import player_class
 import ghost_class
-import sys
-import os
 
 
 # ------pygame initiation------
@@ -53,7 +51,7 @@ for g,i in enumerate(PACMAN):
         i[idx] = pygame.transform.scale(i[idx], (30, 30))
 
 
-icon = pygame.image.load('photo/icon/icon.png')
+icon = pygame.image.load('photo/icon.png')
 pygame.display.set_icon(icon)
 
 
