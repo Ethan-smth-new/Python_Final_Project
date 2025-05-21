@@ -75,7 +75,7 @@ class Blinky(pygame.sprite.Sprite):
 
 
 
-    def update(self, target, bigdot):
+    def update(self, target):
         self.target_rect.center = (target[0], target[1])
         
         self.ghost_route()
@@ -87,7 +87,7 @@ class Blinky(pygame.sprite.Sprite):
             dis = int(((x - target[0])**2 + (y - target[1])**2) ** 0.5)
             calculation[direction_index] = dis
 
-        if bigdot and not self.eaten:
+        if self.chase and not self.eaten:
             calculation = dict(reversed(sorted(calculation.items(), key=lambda item: item[1])))
         else:
             calculation = dict(sorted(calculation.items(), key=lambda item: item[1]))

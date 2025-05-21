@@ -16,7 +16,6 @@ Width = 560
 Height = 750
 h_b = (Height) // 32
 w_b = Width // 27 
-original_borad =  copy.deepcopy(board)
 
 
 pygame.init()
@@ -74,7 +73,7 @@ ghost_frame = 0
 last_frame_change_ghost = time.time()
 
 
-font = font = pygame.font.Font('Grand9k Pixel.ttf', 20)
+font = pygame.font.Font('Grand9k Pixel.ttf', 20)
 text_dot = font.render(f"Remaining: {player.get_dot()}", True, (255, 255, 255))  # white color
 text_rect_dot = text_dot.get_rect(center=(Width-100, Height))
 text_time = font.render(f"Time: {0} seconds", True, (255, 255, 255))  # white color
@@ -228,46 +227,46 @@ while running:
 
     #blinky movement
     if blinky.door:
-        blinky.update((Width // 2, int((11+0.5) * h_b)),blinky.chase)
+        blinky.update((Width // 2, int((11+0.5) * h_b)))
     elif blinky.eaten:
-        blinky.update((Width // 2, int((14+0.5) * h_b)),blinky.chase)
+        blinky.update((Width // 2, int((14+0.5) * h_b)))
     else:
-        blinky.update(player.rect.center,blinky.chase)
+        blinky.update(player.rect.center)
     
     #pinky movement
     pinky_target = pinky.cal_target(direction, player.rect.center)
     pinky_dist_target = int(((pinky_target[0]-pinky.rect.centerx)**2+(pinky_target[1]-pinky.rect.centery)**2)**0.5)
     #print(pinky_dist_target)
     if pinky.door:
-        pinky.update((Width // 2, int((11+0.5) * h_b)),pinky.chase)
+        pinky.update((Width // 2, int((11+0.5) * h_b)))
     elif pinky.eaten:
-        pinky.update((Width // 2, int((11+0.5) * h_b)),pinky.chase)
+        pinky.update((Width // 2, int((11+0.5) * h_b)))
     elif pinky_dist_target<=int(4.5*w_b):
-        pinky.update(player.rect.center, pinky.chase)
+        pinky.update(player.rect.center)
     else:
-        pinky.update(pinky_target, pinky.chase)
+        pinky.update(pinky_target)
 
     #inky movement
     inky_target = inky.cal_target((player.rect.centerx+12.5,player.rect.centery+12.5) , blinky.rect.center)
     inky_dist_target = int(((inky_target[0]-inky.rect.centerx)**2+(inky_target[1]-inky.rect.centery)**2)**0.5)
     if inky.door:
-        inky.update((Width // 2, int((11+0.5) * h_b)), inky.chase)
+        inky.update((Width // 2, int((11+0.5) * h_b)))
     elif inky.eaten:
-        inky.update((Width // 2, int((11+0.5) * h_b)), inky.chase)
+        inky.update((Width // 2, int((11+0.5) * h_b)))
     elif inky_dist_target<=100:
-        inky.update(player.rect.center, inky.chase)
+        inky.update(player.rect.center)
     else:
-        inky.update(inky_target, inky.chase)
+        inky.update(inky_target)
 
     #clyde movement
     clyde_space = int(((clyde.rect.centerx - player.rect.centerx)**2 +(clyde.rect.centery - player.rect.centery)**2)**0.5)
     if clyde.door:
-        clyde.update((Width // 2, int((11+0.5) * h_b)), clyde.chase)
+        clyde.update((Width // 2, int((11+0.5) * h_b)))
         #pygame.draw.circle(screen, (255,184,82),clyde.target_rect.center, 5) #draw clyde's target point
     elif clyde.eaten:
-        clyde.update((Width // 2, int((14+0.5) * h_b)), clyde.chase)
+        clyde.update((Width // 2, int((14+0.5) * h_b)))
     elif clyde_space <= 6*w_b:
-        clyde.update(player.rect.center, clyde.chase)
+        clyde.update(player.rect.center)
         #pygame.draw.circle(screen, (255,184,82),clyde.target_rect.center, 5) #draw clyde's target point
     else:
         clyde.wander()
